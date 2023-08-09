@@ -1,0 +1,29 @@
+https://bitburner.readthedocs.io/en/latest/netscript/netscriptjs.html#netscriptjs
+
+The only difference is that ns2 scripts use the “.js” extension rather than “.script”. 
+
+The caveat when using ns2 to write scripts is that your code must be asynchronous. Furthermore, instead of using the global scope and executing your code sequentially, ns2 uses a main() function as an entry point.
+
+Furthermore, the “Netscript environment” must be passed into a ns2 script through the main function. This environment includes all of the pre-defined Netscript functions (hack(), exec, etc.) as well as the arguments you pass to the script.
+
+Therefore, the signature of the main() function must be:
+	export async function main(ns) {
+    ns.print("Starting script here");
+    await ns.hack("foodnstuff"); //Use Netscript hack function
+    ns.print(ns.args);           //The script arguments must be prefaced with ns as well
+}
+
+Here is a summary of all rules you need to follow when writing Netscript JS code:
+
+Write await before any call to the following Netscript functions:
+
+hack
+grow
+weaken
+sleep
+prompt
+wget
+scp
+write
+writePort
+

@@ -1,0 +1,40 @@
+This file contains the list of potential API break. A pattern was used to look through all your files and note the spots where you might have a problem. Not everything here is broken./ns\.getScriptExpGain/g
+getScriptExpGain with 0 argument no longer returns the sum of all scripts. Use getTotalScriptExpGain
+
+	custom_stats.js
+		Line 24 values.push(ns.getScriptExpGain().toPrecision(5) + '/sec');
+
+
+/ns\.getScriptExpGain/g
+getScriptIncome with 0 argument no longer returns the sum of all scripts. Use getTotalScriptIncome
+
+	custom_stats.js
+		Line 24 values.push(ns.getScriptExpGain().toPrecision(5) + '/sec');
+
+
+/ns\.scp/g
+scp arguments were switch, it is now scp(files, destination, optionally_source). If you were using 2 argument (not 3) this doesn't affect you.
+
+	fullfrontal.script
+		Line 2 scp early-hack-template.script n00dles;sigma-cosmetics;joesguns;nectar-net;hong-fang-tea;harakiri-sushi
+	transferfiles.script
+		Line 1 scp home ("NUKE.exe, FTPCrack.exe, BruteSSH.exe, ServerProfiler.exe") TARDIS
+	purchase-server-8gb.script
+		Line 19 scp("early-hack-template.script", hostname);
+	startupscript.script
+		Line 22 scp("early-hack-template.script", serv);
+		Line 38 scp("early-hack-template.script", serv);
+	deploy.js
+		Line 27 await ns.scp(script, ns.getHostname(), host);
+
+
+/hacking/g
+The work system is completely reworked and ns.getPlayer().hacking no longer exists. This data is likely available inside ns.getPlayer().currentWork, skills, exp, or hp
+
+	purchase-server-8gb.script
+		Line 15 //  2. Copy our hacking script onto the newly-purchased server
+		Line 16 //  3. Run our hacking script on the newly-purchased server with 3 threads
+	basic_hack.js
+		Line 5 ns.tprint("This script will generate money by hacking a target server.");
+
+
